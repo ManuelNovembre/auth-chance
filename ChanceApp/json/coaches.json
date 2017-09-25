@@ -1,0 +1,18 @@
+[
+{
+    "email"        : "akira.tetsuo@gmail.com",
+    "password"     : "pills"
+},
+{    
+    "email"        : "bilbo@gmail.com",
+    "password"     : "sacquet"
+},
+{
+    "email"        : "gollum@gmail.com",
+    "password"     : "precious"
+},
+{
+    "email"        : "test",
+    "password"     : "123"
+}
+]

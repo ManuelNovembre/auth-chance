@@ -14,8 +14,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
-// grab the user model
-var User = require('./app/models/teacher');
+var Coach = require('./app/models/coach');
+var Candidate = require('./app/models/candidate');
 
 // configuration ===============================================================
 
@@ -36,27 +36,47 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-var newUser =  new User();
-require('fs').readFile('./json/teachers.json', 'utf8', function (err, data) {
+//Seed database with coach
+var newCoach =  new Coach();
+require('fs').readFile('./json/coaches.json', 'utf8', function (err, data) {
     if (err) 
-        console.error("Can't load teacher data");
+        console.error("Can't load coaches data");
     var json = JSON.parse(data);
     for (i in json){
-        newUser = User({
+        newCoach = Coach({
             local            : {
                 email        : json[i].email,
-                password     : newUser.generateHash(json[i].password),
+                password     : newCoach.generateHash(json[i].password),
             }
         });
         // save the user
-        newUser.save(function(err) {
+        newCoach.save(function(err) {
             if (err) throw err;
-                console.log('User created!');
+                console.log('coach saved!');
         });
       
     }
 });
 
+//Seed database with candidate
+var newCandidate =  new Candidate();
+require('fs').readFile('./json/candidates.json', 'utf8', function (err, data) {
+    if (err) 
+        console.error("Can't load candidates data");
+    var json = JSON.parse(data);
+    for (i in json){
+        newCandidate = Candidate({
+            name    : json[i].name,
+            surname : json[i].surname,
+        });
+        // save the candidate
+        newCandidate.save(function(err) {
+            if (err) throw err;
+                console.log('Candidate saved!');
+        });
+      
+    }
+});
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 

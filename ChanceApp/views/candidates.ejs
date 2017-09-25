@@ -1,0 +1,25 @@
+<!-- views/index.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Chance Candidates</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> 
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <h1 style="color:Tomato"><span ></span> Chance Candidates </h1>
+        <ul>
+        <% for (i in candidates) {%>
+            <%= candidates[i].surname %> <%= candidates[i].name %> <br>  
+        <%}%>
+        </ul>
+        <p align = "center">go <a href="/">home</a>.</p>
+    </div>
+
+</div>
+</body>
+</html>
