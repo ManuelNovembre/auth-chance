@@ -13,21 +13,36 @@
 <div class="container" >
 
     <div class="page-header text-center">
-        <h1><span class="fa"></span> Profile Page</h1>
+        <h1 style="color:Tomato"><span class="fa" ></span> Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
             <div class="well" align = "center">
                 <h3><span class="fa fa-user"></span> <%= user.local.email %></h3>
                     <p>
-                        <strong>Choose a student: </strong> 
-                        <select id = "talent">
-                        <% for (i in candidates) {%>
-                            <option value=""><%= candidates[i].surname %> <%= candidates[i].name %></option>   
-                        <%}%>
-                        </select>
+                        <strong>Choose a talent: </strong> 
+                        <form id="tableForm" action="/profile" method="post" >                            
+                            <select id = "talent" name = "selectal">
+                            <% for (i in candidates) {%>
+                                <%var name = candidates[i].name + "\u00a0" + candidates[i].surname; %>
+                                <option value= <%= name %>><%= candidates[i].surname %> <%= candidates[i].name %></option>   
+                            <% } %>
+                            </select>
+                            <br><br>
+                            <input type="submit" class="btn btn-warning btn-lg" value = "OK"/>                        
+                        </form>
                         <br>
                     </p>
             </div>
+            <% if (talent != null) { %>
+            <div class="well" align = "center">                    
+                <h3>Talent : <%= talent %> </h3>
+                <form id="uploadForm" enctype="multipart/form-data" method="post" action="/profileUpload">
+                    <input type="file" name="userFile" /> <br>
+                    <input type="hidden" name="talentname" value ="test"/>
+                    <input type="submit" value="Upload File" class="btn btn-warning btn-lg"  name="submit">
+                </form
+            </div>
+            <% } %>
 </div>
 </body>
 </html>

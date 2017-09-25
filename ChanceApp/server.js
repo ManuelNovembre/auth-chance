@@ -1,7 +1,4 @@
-// server.js
-
-// set up ======================================================================
-// get all the tools we need
+// get all the tools neeeded
 var express  = require('express');
 var app      = express();
 var port     = process.env.PORT || 8080;
@@ -17,8 +14,7 @@ var session      = require('express-session');
 var Coach = require('./app/models/coach');
 var Candidate = require('./app/models/candidate');
 
-// configuration ===============================================================
-
+// configuration 
 mongoose.connect("mongodb://localhost/db_chance"); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
@@ -31,12 +27,13 @@ app.use(bodyParser()); // get information from html forms
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'secret' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-//Seed database with coach
+
+//Seed database with coaches
 var newCoach =  new Coach();
 require('fs').readFile('./json/coaches.json', 'utf8', function (err, data) {
     if (err) 
@@ -58,7 +55,7 @@ require('fs').readFile('./json/coaches.json', 'utf8', function (err, data) {
     }
 });
 
-//Seed database with candidate
+//Seed database with candidates
 var newCandidate =  new Candidate();
 require('fs').readFile('./json/candidates.json', 'utf8', function (err, data) {
     if (err) 
@@ -77,8 +74,8 @@ require('fs').readFile('./json/candidates.json', 'utf8', function (err, data) {
       
     }
 });
-// routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+// routes 
+require('./app/routes.js')(app, passport);
 
-// launch ======================================================================
+// launch 
 app.listen(port);
